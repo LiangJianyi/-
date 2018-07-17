@@ -35,5 +35,40 @@ namespace 风骚哥签到日期计算器 {
 				Debug.WriteLine("error");
 			}
 		}
+
+		private void TimePicker_Previous_TimeChanged(object sender, TimePickerValueChangedEventArgs e) {
+
+		}
+
+		private void TimePicker_Today_TimeChanged(object sender, TimePickerValueChangedEventArgs e) {
+			if (CalendarDatePicker_Previous.Date != null && TimePicker_Previous.Time != null && CalendarDatePicker_Today.Date != null) {
+				var datePrevious = CalendarDatePicker_Previous.Date;
+				var dateToday = CalendarDatePicker_Today.Date;
+				var timePrevious = TimePicker_Previous.Time;
+				var timeToday = TimePicker_Today.Time;
+				var datetimePrevious = new DateTime(
+					datePrevious.Value.Year,
+					datePrevious.Value.Month,
+					datePrevious.Value.Day,
+					timePrevious.Hours,
+					timePrevious.Minutes,
+					timePrevious.Seconds
+				);
+				Debug.WriteLine($"datetimePrevious: {datetimePrevious.ToString()}");
+				var dateTimeToday = new DateTime(
+					dateToday.Value.Year,
+					dateToday.Value.Month,
+					dateToday.Value.Day,
+					timeToday.Hours,
+					timeToday.Minutes,
+					timeToday.Seconds
+				);
+				Debug.WriteLine($"datetimeToday: {dateTimeToday.ToString()}");
+				Debug.WriteLine($"风骚哥本次签到距离上次签到已过了: {dateTimeToday - datetimePrevious}");
+			}
+			else {
+				Debug.WriteLine("error");
+			}
+		}
 	}
 }
