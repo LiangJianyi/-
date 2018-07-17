@@ -29,7 +29,7 @@ namespace 风骚哥签到日期计算器 {
 			var calendar = sender as CalendarDatePicker;
 			var offset = calendar.Date - CalendarDatePicker_Previous.Date;
 			if (CalendarDatePicker_Previous.Date != null) {
-				Debug.WriteLine($"风骚哥本次签到距离上次签到已过了: {offset.Value.Days}天");
+				//Debug.WriteLine($"风骚哥本次签到距离上次签到已过了: {offset.Value.Days}天");
 			}
 			else {
 				Debug.WriteLine("error");
@@ -65,6 +65,27 @@ namespace 风骚哥签到日期计算器 {
 				);
 				Debug.WriteLine($"datetimeToday: {dateTimeToday.ToString()}");
 				Debug.WriteLine($"风骚哥本次签到距离上次签到已过了: {dateTimeToday - datetimePrevious}");
+
+				if (FindName("ResultTextBolck") != null) {
+					(FindName("ResultTextBolck") as TextBlock).Text = $"风骚哥本次签到距离上次签到已过了: {(dateTimeToday - datetimePrevious).Days}天{(dateTimeToday - datetimePrevious).Hours}小时{(dateTimeToday - datetimePrevious).Minutes}分";
+				}
+				else {
+					Root.RowDefinitions[2].Height = new GridLength(100);
+					TextBlock textBlock = new TextBlock();
+					textBlock.Name = "ResultTextBolck";
+					textBlock.Text = $"风骚哥本次签到距离上次签到已过了: {(dateTimeToday - datetimePrevious).Days}天{(dateTimeToday - datetimePrevious).Hours}小时{(dateTimeToday - datetimePrevious).Minutes}分";
+					textBlock.FontSize = 50;
+					Root.Children.Add(textBlock);
+					Grid.SetColumn((FrameworkElement)textBlock, 0);
+					Grid.SetRow((FrameworkElement)textBlock, 2);
+					Grid.SetColumnSpan((FrameworkElement)textBlock, 2);
+				}
+
+				Debug.WriteLine($"风骚哥本次签到距离上次签到已过了: {(dateTimeToday - datetimePrevious).ToString("c")}");
+
+				Debug.WriteLine((dateTimeToday - datetimePrevious).Days);
+				Debug.WriteLine((dateTimeToday - datetimePrevious).Hours);
+				Debug.WriteLine((dateTimeToday - datetimePrevious).Minutes);
 			}
 			else {
 				Debug.WriteLine("error");
