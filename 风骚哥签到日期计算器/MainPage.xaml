@@ -8,7 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-
+    <Grid Name="Root">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <CalendarDatePicker Grid.Row="0" Grid.Column="0" Name="CalendarDatePicker_Previous" Header="Previous" PlaceholderText="" HorizontalAlignment="Center"
+                            DateChanged="CalendarDatePicker_Previous_DateChanged"/>
+        <CalendarDatePicker Grid.Row="0" Grid.Column="1" Name="CalendarDatePicker_Today" Header="Today" PlaceholderText="" HorizontalAlignment="Center"
+                            DateChanged="CalendarDatePicker_Today_DateChanged"/>
     </Grid>
 </Page>
