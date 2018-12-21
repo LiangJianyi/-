@@ -23,7 +23,7 @@ namespace 风骚哥签到日期计算器 {
 		private void CalendarDatePicker_Previous_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args) {
 			var calendar = sender as CalendarDatePicker;
 #if DEBUG
-			Debug.WriteLine($"Previous: {calendar.Date.Value.Month}/{calendar.Date.Value.Day}/{calendar.Date.Value.Year}"); 
+			Debug.WriteLine($"Previous: {calendar.Date.Value.Month}/{calendar.Date.Value.Day}/{calendar.Date.Value.Year}");
 #endif
 		}
 
@@ -36,7 +36,7 @@ namespace 风骚哥签到日期计算器 {
 			}
 			else {
 				Debug.WriteLine("error");
-			} 
+			}
 #endif
 		}
 
@@ -74,12 +74,12 @@ namespace 风骚哥签到日期计算器 {
 					(FindName("ResultTextBolck") as TextBlock).Text = $"风骚哥本次签到距离上次签到已过了: {(dateTimeToday - datetimePrevious).Days}天{(dateTimeToday - datetimePrevious).Hours}小时{(dateTimeToday - datetimePrevious).Minutes}分";
 				}
 				else {
-					Root.RowDefinitions[2].Height = new GridLength(100);
+					HomeGrid.RowDefinitions[2].Height = new GridLength(100);
 					TextBlock textBlock = new TextBlock();
 					textBlock.Name = "ResultTextBolck";
 					textBlock.Text = $"风骚哥本次签到距离上次签到已过了: {(dateTimeToday - datetimePrevious).Days}天{(dateTimeToday - datetimePrevious).Hours}小时{(dateTimeToday - datetimePrevious).Minutes}分";
 					textBlock.FontSize = 50;
-					Root.Children.Add(textBlock);
+					HomeGrid.Children.Add(textBlock);
 					Grid.SetColumn((FrameworkElement)textBlock, 0);
 					Grid.SetRow((FrameworkElement)textBlock, 2);
 					Grid.SetColumnSpan((FrameworkElement)textBlock, 2);
@@ -97,7 +97,27 @@ namespace 风骚哥签到日期计算器 {
 		}
 
 		private void LeftListView_ItemClick(object sender, ItemClickEventArgs e) {
+			var stackPanel = e.ClickedItem as StackPanel;
+			var textBlock = stackPanel.Children[1] as TextBlock;
+			switch (textBlock.Text) {
+				case "主页":
+					var grid = new Grid() { Name = "HomeGrid" };
+					grid.ColumnDefinitions.Add(new ColumnDefinition());
+					grid.ColumnDefinitions.Add(new ColumnDefinition());
+					grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(90) });
+					grid.RowDefinitions.Add(new RowDefinition());
+					grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0) });
+					break;
+				default:
+					break;
+			}
+		}
 
+		private void SplitView_PointerPressed(object sender, PointerRoutedEventArgs e) {
+			var splitView = sender as SplitView;
+			if (!splitView.IsPaneOpen) {
+				splitView.IsPaneOpen = true;
+			}
 		}
 	}
 }
