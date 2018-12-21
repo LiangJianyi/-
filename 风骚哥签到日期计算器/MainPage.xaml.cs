@@ -22,18 +22,22 @@ namespace 风骚哥签到日期计算器 {
 
 		private void CalendarDatePicker_Previous_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args) {
 			var calendar = sender as CalendarDatePicker;
-			Debug.WriteLine($"Previous: {calendar.Date.Value.Month}/{calendar.Date.Value.Day}/{calendar.Date.Value.Year}");
+#if DEBUG
+			Debug.WriteLine($"Previous: {calendar.Date.Value.Month}/{calendar.Date.Value.Day}/{calendar.Date.Value.Year}"); 
+#endif
 		}
 
 		private void CalendarDatePicker_Today_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args) {
 			var calendar = sender as CalendarDatePicker;
 			var offset = calendar.Date - CalendarDatePicker_Previous.Date;
+#if DEBUG
 			if (CalendarDatePicker_Previous.Date != null) {
-				//Debug.WriteLine($"风骚哥本次签到距离上次签到已过了: {offset.Value.Days}天");
+				Debug.WriteLine($"风骚哥本次签到距离上次签到已过了: {offset.Value.Days}天");
 			}
 			else {
 				Debug.WriteLine("error");
-			}
+			} 
+#endif
 		}
 
 		private void TimePicker_Previous_TimeChanged(object sender, TimePickerValueChangedEventArgs e) {
@@ -90,6 +94,10 @@ namespace 风骚哥签到日期计算器 {
 			else {
 				Debug.WriteLine("error");
 			}
+		}
+
+		private void LeftListView_ItemClick(object sender, ItemClickEventArgs e) {
+
 		}
 	}
 }
