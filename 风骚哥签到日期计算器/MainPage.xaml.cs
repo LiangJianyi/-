@@ -114,7 +114,7 @@ namespace 风骚哥签到日期计算器 {
 			var homeGrid = new Grid() { Name = "HomeGrid" };
 			homeGrid.ColumnDefinitions.Add(new ColumnDefinition());
 			homeGrid.ColumnDefinitions.Add(new ColumnDefinition());
-			homeGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(90) });
+			homeGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(120) });
 			homeGrid.RowDefinitions.Add(new RowDefinition());
 			homeGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0) });
 
@@ -125,6 +125,10 @@ namespace 风骚哥签到日期计算器 {
 				HorizontalAlignment = HorizontalAlignment.Center,
 				Margin = new Thickness(0, 35, 0, 0)
 			};
+			homeGrid.Children.Add(titleTextBlock);
+			Grid.SetColumn(titleTextBlock, 0);
+			Grid.SetColumnSpan(titleTextBlock, 2);
+			Grid.SetRow(titleTextBlock, 0);
 
 			// 封装“上次签到时间”的表格
 			var leftGrid = new Grid();
@@ -147,6 +151,9 @@ namespace 风骚哥签到日期计算器 {
 			leftGrid.Children.Add(leftTimePicker);
 			Grid.SetColumn(leftCalendarDatePicker, 0);
 			Grid.SetRow(leftTimePicker, 0);
+			homeGrid.Children.Add(leftGrid);
+			Grid.SetColumn(leftGrid, 0);
+			Grid.SetRow(leftGrid, 1);
 
 			// 封装“今天签到时间”的表格
 			var rightGrid = new Grid();
@@ -169,11 +176,9 @@ namespace 风骚哥签到日期计算器 {
 			rightGrid.Children.Add(rightTimePicker);
 			Grid.SetColumn(rightCalendarDatePicker, 0);
 			Grid.SetRow(rightTimePicker, 0);
-
-			// 把上面创建的控件添加到 homeGrid
-			homeGrid.Children.Add(titleTextBlock);
-			homeGrid.Children.Add(leftGrid);
 			homeGrid.Children.Add(rightGrid);
+			Grid.SetColumn(rightGrid, 1);
+			Grid.SetRow(rightGrid, 1);
 
 			return homeGrid;
 		}
