@@ -122,22 +122,45 @@ namespace 风骚哥签到日期计算器 {
 					var leftGrid = new Grid();
 					leftGrid.ColumnDefinitions.Add(new ColumnDefinition());
 					leftGrid.RowDefinitions.Add(new RowDefinition());
-					var calendarDatePicker = new CalendarDatePicker() {
+					var leftCalendarDatePicker = new CalendarDatePicker() {
 						Name = "CalendarDatePicker_Previous",
 						Header = "上次签到时间",
 						PlaceholderText = "上次签到时间",
 						HorizontalAlignment = HorizontalAlignment.Center,
 					};
-					calendarDatePicker.DateChanged += CalendarDatePicker_Previous_DateChanged;
-					var timePicker = new TimePicker() {
+					leftCalendarDatePicker.DateChanged += CalendarDatePicker_Previous_DateChanged;
+					var leftTimePicker = new TimePicker() {
 						Name = "TimePicker_Previous",
 						HorizontalAlignment = HorizontalAlignment.Center,
 						Margin = new Thickness(0, 120, 0, 0)
 					};
-					timePicker.TimeChanged += TimePicker_Previous_TimeChanged;
+					leftTimePicker.TimeChanged += TimePicker_Previous_TimeChanged;
+					leftGrid.Children.Add(leftCalendarDatePicker);
+					leftGrid.Children.Add(leftTimePicker);
+					Grid.SetColumn(leftCalendarDatePicker, 0);
+					Grid.SetRow(leftTimePicker, 0);
 					
 					// 封装“今天签到时间”的表格
 					var rightGrid = new Grid();
+					rightGrid.ColumnDefinitions.Add(new ColumnDefinition());
+					rightGrid.RowDefinitions.Add(new RowDefinition());
+					var rightCalendarDatePicker = new CalendarDatePicker() {
+						Name = "CalendarDatePicker_Today",
+						Header = "今天签到时间",
+						PlaceholderText = "今天签到时间",
+						HorizontalAlignment = HorizontalAlignment.Center,
+					};
+					rightCalendarDatePicker.DateChanged += CalendarDatePicker_Today_DateChanged;
+					var rightTimePicker = new TimePicker() {
+						Name = "TimePicker_Today",
+						HorizontalAlignment = HorizontalAlignment.Center,
+						Margin = new Thickness(0, 120, 0, 0)
+					};
+					rightTimePicker.TimeChanged += TimePicker_Today_TimeChanged;
+					rightGrid.Children.Add(rightCalendarDatePicker);
+					rightGrid.Children.Add(rightTimePicker);
+					Grid.SetColumn(rightCalendarDatePicker, 0);
+					Grid.SetRow(rightTimePicker, 0);
 
 					break;
 				default:
