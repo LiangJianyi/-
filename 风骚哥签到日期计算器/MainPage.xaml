@@ -8,7 +8,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <SplitView IsPaneOpen="True"
+    <SplitView x:Name="LeftMenu" 
+               IsPaneOpen="True"
                DisplayMode="CompactOverlay"
                OpenPaneLength="245"
                CompactPaneLength="48"
@@ -44,19 +45,23 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="90"/>
+                <RowDefinition Height="120"/>
                 <RowDefinition />
                 <RowDefinition Height="0"/>
             </Grid.RowDefinitions>
-            <TextBlock Name="TitleTextBlock" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="风骚哥今天签到了吗？" FontSize="50"/>
-            <CalendarDatePicker Grid.Row="1" Grid.Column="0" Name="CalendarDatePicker_Previous" Header="上次签到时间" PlaceholderText="" HorizontalAlignment="Center"
+            <TextBlock Name="TitleTextBlock" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="风骚哥今天签到了吗？" FontSize="50" HorizontalAlignment="Center" Margin="0,35,0,0"/>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <CalendarDatePicker Name="CalendarDatePicker_Previous" Header="上次签到时间" PlaceholderText="上次签到时间" HorizontalAlignment="Center"
                             DateChanged="CalendarDatePicker_Previous_DateChanged"/>
-            <CalendarDatePicker Grid.Row="1" Grid.Column="1" Name="CalendarDatePicker_Today" Header="今天签到时间" PlaceholderText="" HorizontalAlignment="Center"
-                            DateChanged="CalendarDatePicker_Today_DateChanged"/>
-            <TimePicker Grid.Row="1" Grid.Column="0" Name="TimePicker_Previous" HorizontalAlignment="Center" Margin="0,120,0,0"
+                <TimePicker Name="TimePicker_Previous" HorizontalAlignment="Center" Margin="0,120,0,0"
                     TimeChanged="TimePicker_Previous_TimeChanged"/>
-            <TimePicker Grid.Row="1" Grid.Column="1" Name="TimePicker_Today" HorizontalAlignment="Center" Margin="0,120,0,0"
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <CalendarDatePicker Name="CalendarDatePicker_Today" Header="今天签到时间" PlaceholderText="" HorizontalAlignment="Center"
+                            DateChanged="CalendarDatePicker_Today_DateChanged"/>
+                <TimePicker Name="TimePicker_Today" HorizontalAlignment="Center" Margin="0,120,0,0"
                     TimeChanged="TimePicker_Today_TimeChanged"/>
+            </Grid>
         </Grid>
     </SplitView>
 </Page>

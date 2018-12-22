@@ -18,6 +18,7 @@ namespace 风骚哥签到日期计算器 {
 	public sealed partial class MainPage : Page {
 		public MainPage() {
 			this.InitializeComponent();
+			this.LeftMenu.IsPaneOpen = false;
 		}
 
 		private void CalendarDatePicker_Previous_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args) {
@@ -75,14 +76,15 @@ namespace 风骚哥签到日期计算器 {
 				}
 				else {
 					HomeGrid.RowDefinitions[2].Height = new GridLength(100);
-					TextBlock textBlock = new TextBlock();
-					textBlock.Name = "ResultTextBolck";
-					textBlock.Text = $"风骚哥本次签到距离上次签到已过了: {(dateTimeToday - datetimePrevious).Days}天{(dateTimeToday - datetimePrevious).Hours}小时{(dateTimeToday - datetimePrevious).Minutes}分";
-					textBlock.FontSize = 50;
+					TextBlock textBlock = new TextBlock {
+						Name = "ResultTextBolck",
+						Text = $"风骚哥本次签到距离上次签到已过了: {(dateTimeToday - datetimePrevious).Days}天{(dateTimeToday - datetimePrevious).Hours}小时{(dateTimeToday - datetimePrevious).Minutes}分",
+						FontSize = 50
+					};
 					HomeGrid.Children.Add(textBlock);
-					Grid.SetColumn((FrameworkElement)textBlock, 0);
-					Grid.SetRow((FrameworkElement)textBlock, 2);
-					Grid.SetColumnSpan((FrameworkElement)textBlock, 2);
+					Grid.SetColumn(textBlock, 0);
+					Grid.SetRow(textBlock, 2);
+					Grid.SetColumnSpan(textBlock, 2);
 				}
 
 				Debug.WriteLine($"风骚哥本次签到距离上次签到已过了: {(dateTimeToday - datetimePrevious).ToString("c")}");
@@ -98,15 +100,45 @@ namespace 风骚哥签到日期计算器 {
 
 		private void LeftListView_ItemClick(object sender, ItemClickEventArgs e) {
 			var stackPanel = e.ClickedItem as StackPanel;
-			var textBlock = stackPanel.Children[1] as TextBlock;
-			switch (textBlock.Text) {
+			var clickedItemTextBlock = stackPanel.Children[1] as TextBlock;
+			switch (clickedItemTextBlock.Text) {
 				case "主页":
-					var grid = new Grid() { Name = "HomeGrid" };
-					grid.ColumnDefinitions.Add(new ColumnDefinition());
-					grid.ColumnDefinitions.Add(new ColumnDefinition());
-					grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(90) });
-					grid.RowDefinitions.Add(new RowDefinition());
-					grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0) });
+					var homeGrid = new Grid() { Name = "HomeGrid" };
+					homeGrid.ColumnDefinitions.Add(new ColumnDefinition());
+					homeGrid.ColumnDefinitions.Add(new ColumnDefinition());
+					homeGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(90) });
+					homeGrid.RowDefinitions.Add(new RowDefinition());
+					homeGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0) });
+
+					var titleTextBlock = new TextBlock() {
+						Name = "TitleTextBlock",
+						Text = "风骚哥今天签到了吗？",
+						FontSize = 50,
+						HorizontalAlignment = HorizontalAlignment.Center,
+						Margin = new Thickness(0, 35, 0, 0)
+					};
+
+					// 封装“上次签到时间”的表格
+					var leftGrid = new Grid();
+					leftGrid.ColumnDefinitions.Add(new ColumnDefinition());
+					leftGrid.RowDefinitions.Add(new RowDefinition());
+					var calendarDatePicker = new CalendarDatePicker() {
+						Name = "CalendarDatePicker_Previous",
+						Header = "上次签到时间",
+						PlaceholderText = "上次签到时间",
+						HorizontalAlignment = HorizontalAlignment.Center,
+					};
+					calendarDatePicker.DateChanged += CalendarDatePicker_Previous_DateChanged;
+					var timePicker = new TimePicker() {
+						Name = "TimePicker_Previous",
+						HorizontalAlignment = HorizontalAlignment.Center,
+						Margin = new Thickness(0, 120, 0, 0)
+					};
+					timePicker.TimeChanged += TimePicker_Previous_TimeChanged;
+					
+					// 封装“今天签到时间”的表格
+					var rightGrid = new Grid();
+
 					break;
 				default:
 					break;
